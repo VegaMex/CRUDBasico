@@ -75,6 +75,9 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
 
                 }
                 break;
+            case R.id.btnCancelarCreate:
+                finish();
+                break;
         }
     }
 
