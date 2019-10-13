@@ -20,8 +20,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ListView lista;
