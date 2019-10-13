@@ -11,8 +11,8 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtUsuario"
+    <EditText
+        android:id="@+id/txtUsuarioUD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="usuario"
@@ -26,8 +26,8 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtCorreo"
+    <EditText
+        android:id="@+id/txtEmailUD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="email"
@@ -41,27 +41,40 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtTelefono"
+    <EditText
+        android:id="@+id/txtTelefonoUD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="telefono"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Correo electrónico"
+        android:text="Fecha de Nacimiento"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtFechaNacimiento"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fecha nacimiento"
-        android:textSize="24sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtFechaUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de nacimiento"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnFechaUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

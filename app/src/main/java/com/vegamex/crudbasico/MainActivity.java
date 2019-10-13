@@ -1,6 +1,7 @@
 package com.vegamex.crudbasico;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -15,15 +16,17 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView lista;
+    //DAOContacto daoContacto = new DAOContacto(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +44,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //DataBase dataBase = new DataBase(getBaseContext());
-        //SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-
-        Calendar c = Calendar.getInstance();
-        long y = c.getTimeInMillis();
 
         DAOContacto daoContacto = new DAOContacto(this);
-        //daoContacto.insert(new Contacto(0, "Oscar", "oscar@mail.com", "445", y));
-        //daoContacto.insert(new Contacto(0, "Pablo", "pablo@mail.com", "445", y));
 
-        for (Contacto contacto : daoContacto.getAll()){
-            Toast.makeText(this,
-                    contacto.usuario,
-                    Toast.LENGTH_SHORT).show();
-        }
+
+//        for (Contacto contacto : daoContacto.getAll()){
+//            Toast.makeText(this,
+//                    contacto.usuario,
+//                    Toast.LENGTH_SHORT).show();
+//        }
 
         lista = findViewById(R.id.lista);
+
+        lista.setClickable(true);
+        lista.setOnItemClickListener(this);
 
         SimpleCursorAdapter adp =
                 new SimpleCursorAdapter(
@@ -121,5 +121,24 @@ public class MainActivity extends AppCompatActivity {
 
                 );
         lista.setAdapter(adp);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if(adapterView == lista){
+            DAOContacto daoContacto = new DAOContacto(this);
+            Cursor cursor = (Cursor)lista.getItemAtPosition(i);
+            String id = cursor.getString( cursor.getColumnIndex("_id") );
+
+            Contacto contacto = daoContacto.contactoPorID(Integer.parseInt(id));
+
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("contacto", contacto);
+            intent.putExtras(bundle);
+            intent.setClass(this, UpdateDeleteClass.class);
+            startActivity(intent);
+        }
     }
 }

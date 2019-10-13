@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class DAOContacto {
 
     SQLiteDatabase sqLiteDatabase;
     Context contexto;
+
 
     public DAOContacto(Context contexto) {
         this.contexto = contexto;
@@ -27,6 +29,28 @@ public class DAOContacto {
         contentValues.put(DataBase.COLUMNS_NAME_CONTACTO[4], contacto.getFechaNacimiento());
 
         return sqLiteDatabase.insert(DataBase.TABLE_NAME_CONTACTOS, null, contentValues);
+    }
+
+    public Contacto contactoPorID(int id){
+        Cursor cursor = sqLiteDatabase.query(DataBase.TABLE_NAME_CONTACTOS,
+                null,"_id="+id,null,null,null, null);
+
+        Contacto contacto = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                contacto =
+                        new Contacto(cursor.getInt(0), cursor.getString(1),
+                                cursor.getString(2), cursor.getString(3), cursor.getLong(4));
+            } while (cursor.moveToNext());
+        }
+
+        return contacto;
+    }
+
+    public String obtenerSQLSelect(int id){
+        String select = "SELECT * FROM contactos WHERE _id =" + id + ";";
+        return select;
     }
 
     public List<Contacto> getAll() {

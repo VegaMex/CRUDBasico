@@ -20,6 +20,7 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
     private TextView txtFechaCreate;
     private EditText txtUsuarioCreate, txtEmailCreate, txtTelefonoCreate;
     private int dia, mes, año;
+    Calendar cal = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if(view == btnFechaCreate){
-            final Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             dia = calendar.get(Calendar.DAY_OF_MONTH);
             mes = calendar.get(Calendar.MONTH);
             año = calendar.get(Calendar.YEAR);
@@ -53,6 +54,7 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
                     txtFechaCreate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                 }
             }, año, mes, dia);
+            cal = calendar;
             datePickerDialog.show();
         }
 
@@ -60,13 +62,13 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(CreateClass.this, MainActivity.class);
             DAOContacto daoContacto = new DAOContacto(this);
             Conversores conversor = new Conversores();
-            long fecha = conversor.CalendarALong(año, mes, dia);
+            long fecha = conversor.CalendarALong(cal);
 
             try {
 
                 daoContacto.insert(new Contacto(0, txtUsuarioCreate.getText().toString(),
                         txtEmailCreate.getText().toString(),
-                        txtEmailCreate.getText().toString(),fecha));
+                        txtTelefonoCreate.getText().toString(),fecha));
 
                 setResult(RESULT_OK, null);
                 finish();

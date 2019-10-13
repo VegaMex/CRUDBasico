@@ -1,8 +1,9 @@
 package com.vegamex.crudbasico;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Contacto {
+public class Contacto implements Serializable {
     int id;
     String usuario;
     String email;

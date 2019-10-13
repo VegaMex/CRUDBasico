@@ -22,6 +22,9 @@
         <activity android:name=".CreateClass">
 
         </activity>
+        <activity android:name=".UpdateDeleteClass">
+
+        </activity>
     </application>
 
 </manifest>
