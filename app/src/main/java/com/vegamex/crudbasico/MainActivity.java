@@ -1,5 +1,6 @@
 package com.vegamex.crudbasico;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -8,9 +9,13 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.ContactsContract;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.btnNuevoMain);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //DataBase dataBase = new DataBase(getBaseContext());
+        //SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
+
+        Calendar c = Calendar.getInstance();
+        long y = c.getTimeInMillis();
+
+        DAOContacto daoContacto = new DAOContacto(this);
+        daoContacto.insert(new Contacto(0, "Oscar", "oscar@mail.com", "445", y));
+        daoContacto.insert(new Contacto(0, "Pablo", "pablo@mail.com", "445", y));
+
+        for (Contacto contacto : daoContacto.getAll()){
+            Toast.makeText(this,
+                    contacto.usuario,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

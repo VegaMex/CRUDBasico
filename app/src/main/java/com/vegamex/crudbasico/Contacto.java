@@ -7,12 +7,12 @@ public class Contacto {
     String usuario;
     String email;
     String telefono;
-    Calendar fechaNacimiento;
+    long fechaNacimiento;
 
     public Contacto() {
     }
 
-    public Contacto(int id, String usuario, String email, String telefono, Calendar fechaNacimiento) {
+    public Contacto(int id, String usuario, String email, String telefono, long fechaNacimiento) {
         this.id = id;
         this.usuario = usuario;
         this.email = email;
@@ -52,11 +52,11 @@ public class Contacto {
         this.telefono = telefono;
     }
 
-    public Calendar getFechaNacimiento() {
+    public long getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Calendar fechaNacimiento) {
+    public void setFechaNacimiento(long fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }
