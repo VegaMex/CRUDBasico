@@ -100,10 +100,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == MainActivity.RESULT_OK){
-            Toast.makeText(this, "Se insertó un registro.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Operación realizada con éxito.", Toast.LENGTH_SHORT).show();
             refresh();
         }else{
-            Toast.makeText(this, "Error al insertar el registro.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "La operación falló.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             bundle.putSerializable("contacto", contacto);
             intent.putExtras(bundle);
             intent.setClass(this, UpdateDeleteClass.class);
-            startActivity(intent);
+            startActivityForResult(intent, 10);
         }
     }
 }

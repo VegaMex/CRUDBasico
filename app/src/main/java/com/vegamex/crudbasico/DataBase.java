@@ -16,7 +16,7 @@ public class DataBase extends SQLiteOpenHelper {
             "_usuario TEXT NOT NULL," +
             "_email TEXT NOT NULL," +
             "_telefono TEXT NOT NULL," +
-            "_fechaNacimiento INTEGER NOT NULL" +
+            "_fechaNacimiento DATE NOT NULL" +
             ");";
 
     public static final String[] COLUMNS_NAME_CONTACTO =

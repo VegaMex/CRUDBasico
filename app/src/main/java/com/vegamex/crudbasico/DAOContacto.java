@@ -31,6 +31,16 @@ public class DAOContacto {
         return sqLiteDatabase.insert(DataBase.TABLE_NAME_CONTACTOS, null, contentValues);
     }
 
+    public boolean delete (int id){
+        return sqLiteDatabase.delete(DataBase.TABLE_NAME_CONTACTOS,
+                "_id=?",new String[]{Integer.toString(id)}) > 0;
+    }
+
+    public boolean update(int id, ContentValues contentValues){
+        return sqLiteDatabase.update(DataBase.TABLE_NAME_CONTACTOS, contentValues,
+                "_id="+id,null) > 0;
+    }
+
     public Contacto contactoPorID(int id){
         Cursor cursor = sqLiteDatabase.query(DataBase.TABLE_NAME_CONTACTOS,
                 null,"_id="+id,null,null,null, null);
@@ -41,7 +51,7 @@ public class DAOContacto {
             do {
                 contacto =
                         new Contacto(cursor.getInt(0), cursor.getString(1),
-                                cursor.getString(2), cursor.getString(3), cursor.getLong(4));
+                                cursor.getString(2), cursor.getString(3), cursor.getString(4));
             } while (cursor.moveToNext());
         }
 
@@ -70,7 +80,7 @@ public class DAOContacto {
             do {
                 Contacto contacto =
                         new Contacto(cursor.getInt(0), cursor.getString(1),
-                                cursor.getString(2), cursor.getString(3), cursor.getLong(4));
+                                cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 lista.add(contacto);
 
             } while (cursor.moveToNext());

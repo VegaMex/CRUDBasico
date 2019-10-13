@@ -8,12 +8,12 @@ public class Contacto implements Serializable {
     String usuario;
     String email;
     String telefono;
-    long fechaNacimiento;
+    String fechaNacimiento;
 
     public Contacto() {
     }
 
-    public Contacto(int id, String usuario, String email, String telefono, long fechaNacimiento) {
+    public Contacto(int id, String usuario, String email, String telefono, String fechaNacimiento) {
         this.id = id;
         this.usuario = usuario;
         this.email = email;
@@ -53,11 +53,11 @@ public class Contacto implements Serializable {
         this.telefono = telefono;
     }
 
-    public long getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(long fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }

@@ -19,8 +19,14 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
     private Button btnFechaCreate, btnCancelarCreate, btnAgregarCreate;
     private TextView txtFechaCreate;
     private EditText txtUsuarioCreate, txtEmailCreate, txtTelefonoCreate;
-    private int dia, mes, año;
-    Calendar cal = null;
+
+
+    private static final String CERO = "0";
+    private static final String BARRA = "/";
+    public final Calendar calendar = Calendar.getInstance();
+    final int mes = calendar.get(Calendar.MONTH);
+    final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+    final int año = calendar.get(Calendar.YEAR);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,42 +49,49 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if(view == btnFechaCreate){
-            Calendar calendar = Calendar.getInstance();
-            dia = calendar.get(Calendar.DAY_OF_MONTH);
-            mes = calendar.get(Calendar.MONTH);
-            año = calendar.get(Calendar.YEAR);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    txtFechaCreate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+        switch (view.getId()){
+            case R.id.btnFechaCreate:
+                obtenerFecha();
+                break;
+            case R.id.btnAgregarCreate:
+                Intent intent = new Intent(CreateClass.this, MainActivity.class);
+                DAOContacto daoContacto = new DAOContacto(this);
+
+                try {
+
+                    daoContacto.insert(new Contacto(0, txtUsuarioCreate.getText().toString(),
+                            txtEmailCreate.getText().toString(),
+                            txtTelefonoCreate.getText().toString(),
+                            txtFechaCreate.getText().toString()));
+
+                    setResult(RESULT_OK, null);
+                    finish();
+
+                }catch (Exception ex){
+
+                    setResult(RESULT_CANCELED, null);
+                    finish();
+
                 }
-            }, año, mes, dia);
-            cal = calendar;
-            datePickerDialog.show();
+                break;
         }
+    }
 
-        if(view == btnAgregarCreate){
-            Intent intent = new Intent(CreateClass.this, MainActivity.class);
-            DAOContacto daoContacto = new DAOContacto(this);
-            Conversores conversor = new Conversores();
-            long fecha = conversor.CalendarALong(cal);
-
-            try {
-
-                daoContacto.insert(new Contacto(0, txtUsuarioCreate.getText().toString(),
-                        txtEmailCreate.getText().toString(),
-                        txtTelefonoCreate.getText().toString(),fecha));
-
-                setResult(RESULT_OK, null);
-                finish();
-
-            }catch (Exception ex){
-
-                setResult(RESULT_CANCELED, null);
-                finish();
-
+    public void obtenerFecha(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+                final int mesActual = month + 1;
+                //Formateo el día obtenido: antepone el 0 si son menores de 10
+                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                //Formateo el mes obtenido: antepone el 0 si son menores de 10
+                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                //Muestro la fecha con el formato deseado
+                txtFechaCreate.setText(year + BARRA + mesFormateado + BARRA + diaFormateado);
             }
-        }
+        }, año, mes, dia);
+        datePickerDialog.show();
     }
 }

@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 public class Conversores {
 
-    public long CalendarALong(Calendar calendar) {
+    public long CalendarALong(final Calendar calendar) {
         if (calendar != null){
             return calendar.getTimeInMillis();
         }else{
@@ -16,7 +16,7 @@ public class Conversores {
     }
 
     public Calendar LongACalendar (long date){
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
         return calendar;
     }
@@ -28,7 +28,7 @@ public class Conversores {
         return dateText;
     }
 
-    public String CalendarAString(Calendar calendar){
+    public String CalendarAString(final Calendar calendar){
         int dia = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
         int mes = calendar.get(Calendar.MONTH);
         int año = calendar.get(Calendar.YEAR);
