@@ -1,11 +1,13 @@
 package com.vegamex.crudbasico;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -34,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, CreateClass.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 );
         lista.setAdapter(adp);
+
     }
 
     @Override
@@ -91,5 +94,32 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == MainActivity.RESULT_OK){
+            Toast.makeText(this, "Se insertó un registro.", Toast.LENGTH_SHORT).show();
+            refresh();
+        }else{
+            Toast.makeText(this, "Error al insertar el registro.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void refresh(){
+        DAOContacto daoContacto = new DAOContacto(this);
+        SimpleCursorAdapter adp =
+                new SimpleCursorAdapter(
+                        this,
+                        android.R.layout.simple_list_item_2,
+                        daoContacto.getAllCursor(),
+                        new String[]{"_usuario","_email"},
+                        new int[]{android.R.id.text1, android.R.id.text2
+                        },
+                        SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE
+
+                );
+        lista.setAdapter(adp);
     }
 }
