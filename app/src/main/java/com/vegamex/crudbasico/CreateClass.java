@@ -20,7 +20,6 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
     private TextView txtFechaCreate;
     private EditText txtUsuarioCreate, txtEmailCreate, txtTelefonoCreate;
 
-
     private static final String CERO = "0";
     private static final String BARRA = "/";
     public final Calendar calendar = Calendar.getInstance();
@@ -44,12 +43,10 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
         btnFechaCreate.setOnClickListener(this);
         btnAgregarCreate.setOnClickListener(this);
         btnCancelarCreate.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()){
             case R.id.btnFechaCreate:
                 obtenerFecha();

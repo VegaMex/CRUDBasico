@@ -27,6 +27,7 @@ public class ReadClass extends AppCompatActivity implements View.OnClickListener
         btnCerrarRead.setOnClickListener(this);
 
         Bundle b = this.getIntent().getExtras();
+
         if (b != null){
             Contacto contacto = (Contacto)b.getSerializable("contacto");
             txtUsuarioRead.setText(contacto.getUsuario());
@@ -36,7 +37,6 @@ public class ReadClass extends AppCompatActivity implements View.OnClickListener
         }else{
             finish();
         }
-
     }
 
     @Override

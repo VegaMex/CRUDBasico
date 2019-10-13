@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -22,8 +21,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String[] COLUMNS_NAME_CONTACTO =
             {"_id", "_usuario", "_email", "_telefono", "_fechaNacimiento"};
 
-    public  static final String TABLE_NAME_CONTACTOS =
-            "contactos";
+    public static final String TABLE_NAME_CONTACTOS = "contactos";
 
     public DataBase(@Nullable Context context) {
         super(context, "MyDB", null, 1);
@@ -34,7 +32,6 @@ public class DataBase extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SCRIPT_DB);
         Log.i(this.getClass().toString(), "ACABO DE EJECUTAR EL SCRIPT");
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

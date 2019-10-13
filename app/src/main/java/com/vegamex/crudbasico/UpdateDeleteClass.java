@@ -61,13 +61,10 @@ public class UpdateDeleteClass extends AppCompatActivity implements View.OnClick
         }else{
             finish();
         }
-
-
     }
 
     @Override
     public void onClick(View view) {
-
         switch(view.getId()){
             case R.id.btnFechaUD:
                 obtenerFecha();
@@ -86,7 +83,6 @@ public class UpdateDeleteClass extends AppCompatActivity implements View.OnClick
                         .show();
                 break;
         }
-
     }
 
     public void eliminar(){
@@ -104,10 +100,9 @@ public class UpdateDeleteClass extends AppCompatActivity implements View.OnClick
     }
 
     public void modificar(){
-        Intent intent = new Intent(UpdateDeleteClass.this, MainActivity.class);
         DAOContacto daoContacto = new DAOContacto(this);
-
         ContentValues contentValues = new ContentValues();
+
         contentValues.put("_usuario", txtUsuarioUD.getText().toString());
         contentValues.put("_email", txtEmailUD.getText().toString());
         contentValues.put("_telefono", txtTelefonoUD.getText().toString());
