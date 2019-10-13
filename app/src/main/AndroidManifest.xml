@@ -25,6 +25,9 @@
         <activity android:name=".UpdateDeleteClass">
 
         </activity>
+        <activity android:name=".ReadClass">
+
+        </activity>
     </application>
 
 </manifest>

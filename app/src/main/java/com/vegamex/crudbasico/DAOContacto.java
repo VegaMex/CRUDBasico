@@ -54,13 +54,9 @@ public class DAOContacto {
                                 cursor.getString(2), cursor.getString(3), cursor.getString(4));
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return contacto;
-    }
-
-    public String obtenerSQLSelect(int id){
-        String select = "SELECT * FROM contactos WHERE _id =" + id + ";";
-        return select;
     }
 
     public List<Contacto> getAll() {
@@ -85,12 +81,13 @@ public class DAOContacto {
 
             } while (cursor.moveToNext());
         }
+        cursor.close();
+
         return lista;
 
     }
 
     public Cursor getAllCursor() {
-
 
         Cursor cursor = sqLiteDatabase.query(DataBase.TABLE_NAME_CONTACTOS,
                 DataBase.COLUMNS_NAME_CONTACTO,
@@ -100,24 +97,25 @@ public class DAOContacto {
                 null,
                 null,
                 null);
-
-
         return cursor;
 
     }
 
-    public Cursor getAllByUsuario(String criterio) {
+    public Contacto contactoPorUsuario(String usuario){
+        Cursor cursor = sqLiteDatabase.query(DataBase.TABLE_NAME_CONTACTOS,
+                null,"_usuario=?",new String[]{usuario},null,null, null);
+        Contacto contacto = null;
 
-        Cursor cursor = sqLiteDatabase.query(
-                DataBase.TABLE_NAME_CONTACTOS,
-                DataBase.COLUMNS_NAME_CONTACTO,
-                "usuario like %?%",
-                new String[]{criterio},
-                null,
-                null, null
+        if (cursor.moveToFirst()) {
+            do {
+                contacto =
+                        new Contacto(cursor.getInt(0), cursor.getString(1),
+                                cursor.getString(2), cursor.getString(3), cursor.getString(4));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
 
-        );
-
-        return cursor;
+        return contacto;
     }
+
 }

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/txtBuscarUsuario"
+            android:id="@+id/txtBuscarMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -23,7 +23,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/btnBuscar"
+            android:id="@+id/btnBuscarMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

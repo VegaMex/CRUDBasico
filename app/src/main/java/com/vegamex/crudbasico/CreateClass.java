@@ -59,7 +59,6 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
                 DAOContacto daoContacto = new DAOContacto(this);
 
                 try {
-
                     daoContacto.insert(new Contacto(0, txtUsuarioCreate.getText().toString(),
                             txtEmailCreate.getText().toString(),
                             txtTelefonoCreate.getText().toString(),
@@ -67,12 +66,9 @@ public class CreateClass extends AppCompatActivity implements View.OnClickListen
 
                     setResult(RESULT_OK, null);
                     finish();
-
                 }catch (Exception ex){
-
                     setResult(RESULT_CANCELED, null);
                     finish();
-
                 }
                 break;
             case R.id.btnCancelarCreate:

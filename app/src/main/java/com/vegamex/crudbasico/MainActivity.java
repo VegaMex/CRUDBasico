@@ -17,16 +17,19 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ListView lista;
-    //DAOContacto daoContacto = new DAOContacto(this);
+    Button btnBuscarMain;
+    EditText txtBuscarMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        btnBuscarMain = (Button)findViewById(R.id.btnBuscarMain);
+        txtBuscarMain = (EditText)findViewById(R.id.txtBuscarMain);
+
+        btnBuscarMain.setOnClickListener(this);
 
         DAOContacto daoContacto = new DAOContacto(this);
-
-
-//        for (Contacto contacto : daoContacto.getAll()){
-//            Toast.makeText(this,
-//                    contacto.usuario,
-//                    Toast.LENGTH_SHORT).show();
-//        }
 
         lista = findViewById(R.id.lista);
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Toast.makeText(this, "Operación realizada con éxito.", Toast.LENGTH_SHORT).show();
             refresh();
         }else{
-            Toast.makeText(this, "La operación falló.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se hizo nada.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,6 +139,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             intent.putExtras(bundle);
             intent.setClass(this, UpdateDeleteClass.class);
             startActivityForResult(intent, 10);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.btnBuscarMain:
+
+                DAOContacto daoContacto = new DAOContacto(this);
+                Contacto contacto = daoContacto.contactoPorUsuario(txtBuscarMain.getText().toString());
+
+                if(contacto != null){
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("contacto", contacto);
+                    intent.putExtras(bundle);
+                    intent.setClass(this, ReadClass.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(this, "No existe el usuario.", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
         }
     }
 }
