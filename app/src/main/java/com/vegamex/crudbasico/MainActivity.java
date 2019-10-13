@@ -54,22 +54,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         DAOContacto daoContacto = new DAOContacto(this);
 
-        //Datos de prueba
-        daoContacto.insert(new Contacto(0,"Juan","juan@mail.com",
-                "4451234567","1999/12/16"));
-        daoContacto.insert(new Contacto(0,"Aarón","aaron@mail.com",
-                "4451234567","1998/02/22"));
-        daoContacto.insert(new Contacto(0,"Óscar","oscar@mail.com",
-                "4451234567","1998/07/17"));
-        daoContacto.insert(new Contacto(0,"Bere","bere@mail.com",
-                "4451234567","1998/05/16"));
-        daoContacto.insert(new Contacto(0,"Monse","monse@mail.com",
-                "4451234567","1998/02/15"));
-        daoContacto.insert(new Contacto(0,"Pablo","pablo@mail.com",
-                "4451234567","1998/08/17"));
-        daoContacto.insert(new Contacto(0,"Iván","ivan@mail.com",
-                "4451234567","1995/10/14"));
-
         lista = findViewById(R.id.lista);
 
         lista.setClickable(true);
@@ -120,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             refresh();
         }else{
             Toast.makeText(this, "No se hizo nada.", Toast.LENGTH_SHORT).show();
+            refresh();
         }
     }
 
