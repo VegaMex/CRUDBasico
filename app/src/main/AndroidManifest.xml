@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vegamex.crudbasico">
 
+    <permission android:name="com.vegamex.crudbasico.CONTACTOS_READ_PERMISSION"/>
+    <permission android:name="com.vegamex.crudbasico.CONTACTOS_WRITE_PERMISSION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,15 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateClass">
+        <activity android:name=".CreateClass"/>
+        <activity android:name=".UpdateDeleteClass"/>
+        <activity android:name=".ReadClass"/>
 
-        </activity>
-        <activity android:name=".UpdateDeleteClass">
-
-        </activity>
-        <activity android:name=".ReadClass">
-
-        </activity>
+        <provider
+            android:authorities="com.vegamex.crudbasico.provider"
+            android:name=".CP"
+            android:exported="true"
+            android:enabled="true"
+            android:readPermission="com.vegamex.crudbasico.CONTACTOS_READ_PERMISSION"
+            android:writePermission="com.vegamex.crudbasico.CONTACTOS_WRITE_PERMISSION"/>
     </application>
 
 </manifest>

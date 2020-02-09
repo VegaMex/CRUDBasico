@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         DAOContacto daoContacto = new DAOContacto(this);
 
         lista = findViewById(R.id.lista);
-
         lista.setClickable(true);
         lista.setOnItemClickListener(this);
 
